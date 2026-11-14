@@ -1,0 +1,20 @@
+meta {
+  name: 04 - Get Product by GTIN (GET)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/v1/products/{{gtin}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status 200 OK y devuelve todos los campos", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body).to.have.all.keys("gtin", "name", "description", "price");
+    expect(body.gtin).to.equal(bru.getEnvVar("gtin"));
+  });
+}

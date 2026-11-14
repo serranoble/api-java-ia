@@ -1,0 +1,15 @@
+services:
+  products-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: products-api:1.0.0
+    container_name: products-api
+    ports:
+      - "8080:8080"
+    volumes:
+      - products-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  products-data:

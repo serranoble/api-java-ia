@@ -1,0 +1,17 @@
+meta {
+  name: 07 - Delete Product (DELETE)
+  type: http
+  seq: 7
+}
+
+delete {
+  url: {{baseUrl}}/api/v1/products/{{gtin}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status 204 No Content", function() {
+    expect(res.getStatus()).to.equal(204);
+  });
+}

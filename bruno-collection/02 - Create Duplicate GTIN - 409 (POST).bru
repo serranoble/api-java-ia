@@ -1,0 +1,27 @@
+meta {
+  name: 02 - Create Duplicate GTIN - 409 (POST)
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/v1/products
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "gtin": "{{gtin}}",
+    "name": "Producto Duplicado",
+    "description": "Debe fallar con 409 Conflict",
+    "price": 10.00
+  }
+}
+
+tests {
+  test("Status 409 Conflict por GTIN duplicado", function() {
+    expect(res.getStatus()).to.equal(409);
+    expect(res.getBody().status).to.equal(409);
+  });
+}

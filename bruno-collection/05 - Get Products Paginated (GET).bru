@@ -1,0 +1,29 @@
+meta {
+  name: 05 - Get Products Paginated (GET)
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{baseUrl}}/api/v1/products?page=0&size=10&sortBy=gtin&sortDir=asc
+  body: none
+  auth: none
+}
+
+params:query {
+  page: 0
+  size: 10
+  sortBy: gtin
+  sortDir: asc
+}
+
+tests {
+  test("Status 200 OK con metadatos de paginación", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body.content).to.be.an("array");
+    expect(body.page).to.equal(0);
+    expect(body.size).to.equal(10);
+    expect(body.totalElements).to.be.at.least(1);
+  });
+}

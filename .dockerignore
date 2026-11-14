@@ -1,0 +1,10 @@
+target/
+*.db
+*.db-journal
+*.log
+.git/
+.gitignore
+.idea/
+.vscode/
+bruno-collection/
+README.md

@@ -1,0 +1,29 @@
+meta {
+  name: 06 - Update Product (PUT)
+  type: http
+  seq: 6
+}
+
+put {
+  url: {{baseUrl}}/api/v1/products/{{gtin}}
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Café Molido Especial 500g",
+    "description": "Nueva cosecha 100% arábica de altura.",
+    "price": 14.90
+  }
+}
+
+tests {
+  test("Status 200 OK y mantiene GTIN inmutable", function() {
+    expect(res.getStatus()).to.equal(200);
+    const body = res.getBody();
+    expect(body.gtin).to.equal(bru.getEnvVar("gtin"));
+    expect(body.name).to.equal("Café Molido Especial 500g");
+    expect(body.price).to.equal(14.9);
+  });
+}
